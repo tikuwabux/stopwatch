@@ -2,7 +2,8 @@
  <html lang="en">
  <head>
  <meta charset="utf-8">
- <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+ <script src="jquery-3.6.1.min.js"></script>
+ <script src="main.js"></script>
  <link rel="stylesheet" href="main.css">
  <title>ストップウォッチ</title>
  </head>
@@ -11,12 +12,17 @@
  <h3>ストップウォッチ</h3>
  
  <!-- ここに記述していきましょう！ -->
- <p>aa</p>
+ <p id="text">
+  <span id="hour">0</span> :
+  <span id="min">0</span> :
+  <span id="sec">0</span> :
+  <span id="ten_m_sec">0</span>
+ </p>
  
- <button class="button start">スタート</button>
- <button class="button stop">ストップ</button>
- <button class="button reset">リセット</button>
+ <button id="start">スタート</button>
+ <button id="stop" disabled>ストップ</button>
+ <button id="reset" disabled>リセット</button>
  
- <script src="main.js"></script>
+ 
  </body>
  </html>
