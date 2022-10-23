@@ -53,14 +53,7 @@ $(function() {
     hour_time = 0;
     hour.html(hour_time);
     
-    /*リセット時にhtml表記の見た目だけでなく、表記されない部分dあけど、表記の大元である変数の値も上書きしとかないとスッキリしないのでボツ
-    hour.html("0");
-    min.html("0");
-    sec.html("0");
-    ten_m_sec.html("0");
-    */
     reset.prop("disabled", true);
-    
   });
   
   //時間の計算
@@ -74,20 +67,12 @@ $(function() {
       mid = 0;
       measure_start = new Date();
       sec_time ++;
-      /*ten_m_sec_time.html();*/
     }
+    
     //60秒経過した時の処理
     if(sec_time > 59) {
       sec_time = 0;
-      /*sec.html();*/
       min_time ++;
-      /*
-      mid = 0;
-      min_time ++;
-      now = new Date();
-      sec_time = 0;
-      sec.html();
-      */
     }
     
     //60分経過した時の処理
@@ -101,18 +86,11 @@ $(function() {
     sec.html(sec_time);
     min.html(min_time);
     hour.html(hour_time);
-    
-    /* count = setInterval(counter, 100);がstopボタン押した時どんな挙動してるかチェック。→結果　カウントが停まっていた。再びスタートボタンをおしても、それまでのカウント数はリセットされず、続きのカウント数から始まる。
-    var cnt = 0;
-    cnt++;
-    console.log(cnt);
-    */
-    
   }
   
   //ボタンの切り替え
   function toggle(){
-    if(!start.prop("disabled")){　//start.prop("disabled", true)にしてしまうと、startセレクトにdisabled属性を追加するという意味になってしまうのでだめ。prop("属性")という今回の使い方では、属性値を取得する使い方をしている。
+    if(!start.prop("disabled")) {
         start.prop("disabled", true);
         stop.prop("disabled", false);
         reset.prop("disabled", true);
@@ -122,18 +100,5 @@ $(function() {
         reset.prop("disabled", false);
     }
   }
-  
-  /*jsファイルがよみこまれているかのサンプルコード
-  $("#start").click(function() {
-    $("button").css("font-size", "50px");
-  });
-  */
-
-  /*new Dateで取得した数値を、ミリ秒に変えてみてみたかった
-  var d1 = new Date('2022/10/23 00:00:00:000').getTime();
-  console.log(d1);
-  
-  var d2 = new Date('2022/10/23 00:00:00:100').getTime();
-  console.log(d2);
-  */
 });
+
