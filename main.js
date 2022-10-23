@@ -3,7 +3,7 @@ $(function() {
 
   var time = 0;
   var mid = 0;
-  var now;
+  var measure_start;
   
   var hour_time = 0;
   var min_time = 0;
@@ -23,14 +23,16 @@ $(function() {
   
   //startボタンが押された時の処理
   start.click(function() {
-    now = new Date();
+    measure_start = new Date();
     count = setInterval(counter, 100);//100msつまり、0.1sごとに呼び出したいので、setIntervalの第二引数は100にしている
     toggle();
+    
+    
   });
   
   //stopボタンが押された時の処理
   stop.click(function() {
-    mid += (new Date() - now)/1000;//new Dataはミリ秒単位なので、秒単位に変換したい場合は1000で割る
+    mid += (new Date() - measure_start)/100;//new Dataはms(0.001s)単位なので、100ms(0.1s)単位に変換したい場合は100で割る
     clearInterval(count);
     toggle();
   });
@@ -38,34 +40,79 @@ $(function() {
   //resetボタンが押された時の処理
   reset.click(function() {
     mid = 0;
+    
+    time = 0;
+    ten_m_sec.html(time);
+    
+    sec_time = 0;
+    sec.html(sec_time);
+    
+    min_time = 0;
+    min.html(min_time);
+    
+    hour_time = 0;
+    hour.html(hour_time);
+    
+    /*リセット時にhtml表記の見た目だけでなく、表記されない部分dあけど、表記の大元である変数の値も上書きしとかないとスッキリしないのでボツ
     hour.html("0");
     min.html("0");
     sec.html("0");
-    ten_m_sec("0");
-    $("#reset").prop("disabled", true);
+    ten_m_sec.html("0");
+    */
+    reset.prop("disabled", true);
+    
   });
   
   //時間の計算
   function counter() {
     
-    time = mid + ((new Date() - now)/1000);
+    time = mid + ((new Date() - measure_start)/100);　//単位を0.1sつまり100msとする
     
+    //1秒(100ms * 10)経過した時の処理
+    if(time > 9) {
+      time = 0;
+      mid = 0;
+      measure_start = new Date();
+      sec_time ++;
+      /*ten_m_sec_time.html();*/
+    }
     //60秒経過した時の処理
-    if(time > 60) {
+    if(sec_time > 59) {
+      sec_time = 0;
+      /*sec.html();*/
+      min_time ++;
+      /*
       mid = 0;
       min_time ++;
       now = new Date();
-      time = 0;
+      sec_time = 0;
       sec.html();
+      */
     }
     
-    sec.html(time);
+    //60分経過した時の処理
+    if(min_time > 59) {
+      min_time = 0;
+      hour_time ++;
+    }
+    
+    //上記で各々の値を代入した変数をhtml表記に反映する//
+    ten_m_sec.html(time.toFixed(0));
+    sec.html(sec_time);
     min.html(min_time);
+    hour.html(hour_time);
+    
+    /* count = setInterval(counter, 100);がstopボタン押した時どんな挙動してるかチェック。→結果　カウントが停まっていた。再びスタートボタンをおしても、それまでのカウント数はリセットされず、続きのカウント数から始まる。
+    var cnt = 0;
+    cnt++;
+    console.log(cnt);
+    */
+    
   }
   
   //ボタンの切り替え
   function toggle(){
-    if(!start.prop("disabled")){
+    if(!start.prop("disabled")){　//start.prop("disabled", true)にしてしまうと、startセレクトにdisabled属性を追加するという意味になってしまうのでだめ。prop("属性")という今回の使い方では、属性値を取得する使い方をしている。
         start.prop("disabled", true);
         stop.prop("disabled", false);
         reset.prop("disabled", true);
@@ -80,5 +127,13 @@ $(function() {
   $("#start").click(function() {
     $("button").css("font-size", "50px");
   });
+  */
+
+  /*new Dateで取得した数値を、ミリ秒に変えてみてみたかった
+  var d1 = new Date('2022/10/23 00:00:00:000').getTime();
+  console.log(d1);
+  
+  var d2 = new Date('2022/10/23 00:00:00:100').getTime();
+  console.log(d2);
   */
 });
