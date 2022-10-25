@@ -1,25 +1,25 @@
 /*global $*/
 $(function() {
 
-  var time = 0;
-  var mid = 0;
-  var measure_start;
+  let time = 0;
+  let mid = 0;
+  let measure_start;
   
-  var hour_time = 0;
-  var min_time = 0;
-  var sec_time = 0;
-  var ten_m_sec_time = 0;
+  let hour_time = 0;
+  let min_time = 0;
+  let sec_time = 0;
+  let ten_m_sec_time = 0;
   
-  var count;
+  let count;
   
-  var hour = $("#hour");
-  var min = $("#min");
-  var sec = $("#sec");
-  var ten_m_sec = $("#ten_m_sec");
+  let hour = $("#hour");
+  let min = $("#min");
+  let sec = $("#sec");
+  let ten_m_sec = $("#ten_m_sec");
   
-  var start = $("#start")
-  var stop = $("#stop")
-  var reset = $("#reset")
+  let start = $("#start")
+  let stop = $("#stop")
+  let reset = $("#reset")
   
   //startボタンが押された時の処理
   start.click(function() {
